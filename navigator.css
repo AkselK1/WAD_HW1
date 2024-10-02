@@ -1,0 +1,40 @@
+/* Navbar styles */
+#navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #613d68;
+}
+
+#navbar li {
+  float: left;
+}
+
+#navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#navbar li a:hover {
+  background-color: #111;
+}
+
+/* Right align the logo */
+#navbar .logo {
+  float: right;
+}
+
+/* Styling for the logo image */
+#navbar .nav-logo {
+  height: 40px;
+  width: auto;
+  padding: 5px;
+}
+/* ID selector */
+#navbar ul {
+  background-color: #613d68;
+}
