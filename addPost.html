@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navigator.css">
     <title>Add Post</title>
     <style>
         body {
@@ -95,12 +97,13 @@
     </script>
 </head>
 <body>
-    <div class="top-bar">
-        <a href="index.html">Home</a>
-        <a href="login.html">
-            <img src="profile_picture.jpg" alt="Login Icon">
-        </a>
-    </div>
+    <nav id="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="addPost.html">Add Post</a></li>
+            <li class="logo"><a href="login.html"><img src="profile_picture.jpg" alt="Logo" class="nav-logo"></a></li>
+        </ul>
+    </nav>
 
     <div class="container">
         <div class="post-box">
@@ -118,4 +121,7 @@
         </div>
     </div>
 </body>
+<footer>
+    <p>&copy; 2024 My Blog</p>
+</footer>
 </html>
