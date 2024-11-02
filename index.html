@@ -12,7 +12,16 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="addPost.html">Add Post</a></li>
-            <li class="logo"><a href="login.html"><img src="profile_picture.jpg" alt="Logo" class="nav-logo"></a></li>
+            <li class="logo">
+                <div class="profile-container">
+                    <img src="profile_picture.jpg" alt="Logo" class="nav-logo" id="profilePicture">
+                    <div class="dropdown-menu" id="profileDropdown">
+                        <p>Username: John Doe</p>
+                        <p>Email: john@example.com</p>
+                        <p>Logout</p>
+                    </div>
+                </div>
+            </li>
         </ul>
     </nav>
     
@@ -28,5 +37,6 @@
         <p>&copy; 2024 My Blog</p>
     </footer>
     <script src="script.js"></script>
+    <script src="navigator.js"></script>
 </body>
 </html>

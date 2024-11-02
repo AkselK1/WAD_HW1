@@ -38,3 +38,35 @@
 #navbar ul {
   background-color: #613d68;
 }
+
+.profile-container {
+  position: relative;
+  z-index: 9999;
+}
+
+.dropdown-menu {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 50px;
+  background-color: rgb(173, 19, 19);
+  border: 1px solid #180101;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  min-width: 200px;
+  z-index: 9999;
+}
+
+.dropdown-menu p {
+  margin: 8px 0;
+  color: #333;
+}
+
+.dropdown-menu p:last-child {
+  color: #ff0000;
+}
+
+.dropdown-menu.show {
+  display: block;
+}

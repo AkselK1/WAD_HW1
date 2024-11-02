@@ -181,3 +181,11 @@ img {
         width: 90%; /* Reduce the width of posts for smaller screens */
     }
 }
+
+.post img.like-icon {
+    width: 24px;  /* Adjust this value to make the icon larger or smaller */
+    height: 24px; /* Keep the same value as width to maintain aspect ratio */
+    cursor: pointer; /* Optional: adds a pointer cursor when hovering over the icon */
+    margin: 0;
+    display: inline;
+}
