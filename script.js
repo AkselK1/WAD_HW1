@@ -7,8 +7,8 @@ const localEndpoint = "post.json";
 // Function to fetch posts from the endpoint
 async function fetchPosts() {
     try {
-        const response = await fetch(localEndpoint);
-        //const response = await fetch(endpoint);
+        //const response = await fetch(localEndpoint);
+        const response = await fetch(endpoint);
         const posts = await response.json();
         displayPosts(posts);
     } catch (error) {

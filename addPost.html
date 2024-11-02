@@ -1,11 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="navigator.css">
-    <title>Home</title>
+    <title>Add Post</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        .top-bar {
+            background-color: gray;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .top-bar img {
+            width: 30px;
+            height: 30px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .post-box {
+            background-color: lightgray;
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+        }
+        .post-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .post-field label {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+        .file-select {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .file-select label {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        input[type="file"] {
+            margin-top: 0;
+        }
+        button {
+            margin-left: 65px;
+            background-color: #0670f7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 200px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+    <script>
+        function redirectToIndex() {
+            window.location.href = 'index.html';
+        }
+    </script>
 </head>
 <body>
     <nav id="navbar">
@@ -24,59 +113,23 @@
             </li>
         </ul>
     </nav>
-    
-    <main>
-        <h1>Blog Posts</h1>
-        <div class="post-container">
-            <div class="post-frame">
-                <div class="post">
-                    <h2>Sun is up</h2>
-                    <p class="post-date">October 5, 2024</p>
-                    <img src="image1.jpg" alt="Post Image 1">
-                    <p>Look what a bird! :ooo</p>
-                    <img src="like.png" alt="Like Icon" class="like-icon">
-                </div>
+    <div class="container">
+        <div class="post-box">
+            <div class="post-field">
+                <label for="postBody">Post body:</label>
+                <textarea id="postBody" placeholder="..."></textarea>
             </div>
-            <div class="post-frame">
-                <div class="post">
-                    <h2>I am hungry</h2>
-                    <p class="post-date">October 4, 2024</p>
-                    <p>Hi, would like to inform you guys that I am very hungry</p>
-                    <img src="like.png" alt="Like Icon" class="like-icon">
+            <div class="action-buttons">
+                <div class="file-select">
+                    <label for="fileInput">Select a file:</label>
+                    <input type="file" id="fileInput">
                 </div>
-            </div>
-            <div class="post-frame">
-                <div class="post">
-                    <h2>Chill</h2>
-                    <p class="post-date">October 3, 2024</p>
-                    <img src="image2.jpg" alt="Post Image 2">
-                    <p>Just chillin</p>
-                    <img src="like.png" alt="Like Icon" class="like-icon">
-                </div>
-            </div>
-            <div class="post-frame">
-                <div class="post">
-                    <h2>New iphone!</h2>
-                    <p class="post-date">October 2, 2024</p>
-                    <img src="image3.jpg" alt="Post Image 3">
-                    <p>Guys got new iphone 16 pro max</p>
-                    <img src="like.png" alt="Like Icon" class="like-icon">
-                </div>
-            </div>
-            <div class="post-frame">
-                <div class="post">
-                    <h2>Postimees</h2>
-                    <p class="post-date">October 1, 2024</p>
-                    <p>Taxes are going to increase</p>
-                    <img src="like.png" alt="Like Icon" class="like-icon">
-                </div>
+                <button onclick="redirectToIndex()">Create post</button> 
             </div>
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 My Blog</p>
-    </footer>
-    <script src="navigator.js"></script>
+    </div>
 </body>
+<footer>
+    <p>&copy; 2024 My Blog</p>
+</footer>
 </html>
