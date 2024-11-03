@@ -49,7 +49,7 @@
   position: fixed;
   right: 18px;
   top: 50px;
-  background-color: rgb(173, 19, 19);
+  background-color: #613d68;
   border: 1px solid #180101;
   border-radius: 4px;
   padding: 15px;
@@ -60,11 +60,11 @@
 
 .dropdown-menu p {
   margin: 8px 0;
-  color: #333;
+  color: white;
 }
 
 .dropdown-menu p:last-child {
-  color: #ff0000;
+  color: white;
 }
 
 .dropdown-menu.show {
