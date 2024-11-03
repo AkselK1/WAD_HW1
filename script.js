@@ -40,6 +40,12 @@ function displayPosts(posts) {
         postDate.textContent = new Date(post.create_time).toLocaleDateString();
         postDiv.appendChild(postDate);
 
+        const profilePic = document.createElement("img");
+        profilePic.src = "profile_picture.jpg";
+        profilePic.alt = "Profile Picture";
+        profilePic.className = "profile-picture";
+        postDiv.appendChild(profilePic);
+
         // Optional image
         if (post.image_url) {
             const postImage = document.createElement("img");
@@ -56,6 +62,12 @@ function displayPosts(posts) {
         // Likes icon and count
         const likeContainer = document.createElement("div");
         likeContainer.className = "like-container";
+
+        const likeIcon = document.createElement("img");
+        likeIcon.src = "like.png";
+        likeIcon.alt = "Like";
+        likeIcon.className = "like-icon";
+        likeContainer.appendChild(likeIcon);
 
         postDiv.appendChild(likeContainer);
 
