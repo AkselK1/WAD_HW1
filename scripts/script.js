@@ -2,13 +2,13 @@
 const endpoint = "https://api.npoint.io/0ee96d0e43f4093eb433";
 
 // Local JSON file path
-const localEndpoint = "post.json";
+const localEndpoint = "./scripts/post.json";
 
 // Function to fetch posts from the endpoint
 async function fetchPosts() {
     try {
-        //const response = await fetch(localEndpoint);
-        const response = await fetch(endpoint);
+        const response = await fetch(localEndpoint);
+        //const response = await fetch(endpoint);
         const posts = await response.json();
         displayPosts(posts);
     } catch (error) {
@@ -41,7 +41,7 @@ function displayPosts(posts) {
         postDiv.appendChild(postDate);
 
         const profilePic = document.createElement("img");
-        profilePic.src = "profile_picture.jpg";
+        profilePic.src = "images/profile_picture.jpg";
         profilePic.alt = "Profile Picture";
         profilePic.className = "profile-picture";
         postDiv.appendChild(profilePic);
@@ -64,7 +64,7 @@ function displayPosts(posts) {
         likeContainer.className = "like-container";
 
         const likeIcon = document.createElement("img");
-        likeIcon.src = "like.png";
+        likeIcon.src = "images/like.png";
         likeIcon.alt = "Like";
         likeIcon.className = "like-icon";
         likeContainer.appendChild(likeIcon);
