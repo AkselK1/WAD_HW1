@@ -111,7 +111,6 @@ h2 {
 }
 
 .form-input {
-  width: 100%;
   padding: 0.8rem;
   border: 2px solid #e1e1e1;
   border-radius: 6px;
