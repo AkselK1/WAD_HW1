@@ -2,12 +2,11 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    posts: [], // Empty initial state
-    isLoading: false, // Add loading state
-    error: null // Add error handling
+    posts: [],
+    isLoading: false, 
+    error: null 
   },
   getters: {
-    // Add getters to access store data
     getAllPosts: (state) => state.posts,
     getPostById: (state) => (id) => {
       return state.posts.find(post => post.id === id);

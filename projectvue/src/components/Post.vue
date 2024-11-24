@@ -15,17 +15,14 @@
         </div>
       </div>
 
-      <!-- Post Image Section -->
       <div v-if="post.image_url" class="post-image-container">
         <img :src="post.image_url" :alt="post.title" class="post-image"/>
       </div>
 
-      <!-- Post Content Section -->
       <div class="post-content">
         <p>{{ post.content }}</p>
       </div>
 
-      <!-- Post Footer Section -->
       <div class="post-footer">
         <div class="tags-container">
           <span v-for="tag in post.tags" 
@@ -253,7 +250,6 @@ export default {
   color: #666;
 }
 
-/* Add this to your MainPage.vue style section */
 .posts {
   padding: 20px;
   max-width: 1200px;

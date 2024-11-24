@@ -25,24 +25,22 @@
     margin: 0 10px;
     text-decoration: none;
     color: #007bff;
-    padding: 0.5rem 1rem; /* Add padding to make the background area larger */
-    border-radius: 4px; /* Optional: Rounded corners for the hover background */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    padding: 0.5rem 1rem; 
+    border-radius: 4px; 
+    transition: background-color 0.3s ease; 
   }
   
   nav a:hover {
-    background-color: #007bff; /* Change background color on hover */
-    color: white; /* Change text color when hovering */
+    background-color: #007bff; 
+    color: white; 
   }
   
-  /* Apply bold font style for the active link */
   nav a.router-link-active {
     font-weight: bold;
   }
   
-  /* Optional: Style for active link when hovered */
   nav a.router-link-active:hover {
-    background-color: #0056b3; /* Darker shade for active link on hover */
+    background-color: #0056b3; 
   }
   </style>
   
