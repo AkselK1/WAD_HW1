@@ -7,7 +7,7 @@
         "create_time": "2024-10-28T06:30:00",
         "tags": ["nature", "sunrise", "morning"],
         "likes": 120,
-        "image_url": "./images/sunrise.jpg"
+        "image_url": "/images/sunrise.jpg"
     },
     {
         "id": 2,
