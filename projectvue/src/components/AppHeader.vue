@@ -11,10 +11,34 @@
 
 <script>
 export default {
-  name: 'AppHeader',
+  name: 'AppHeader'
 }
 </script>
 
 <style scoped>
-/* Siia saad lisada oma stiili */
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
 </style>
+

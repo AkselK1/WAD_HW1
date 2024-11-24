@@ -12,20 +12,33 @@
 <script>
 export default {
   computed: {
-    // Saad postitused Vuex-st
     posts() {
-      return this.$store.state.posts;
+      return this.$store.state.posts; // Saad postitused Vuex-st
     }
   },
   methods: {
-    // Postituse "like" nupp
     likePost(postId) {
-      this.$store.commit('incrementLikes', postId);
+      this.$store.commit('incrementLikes', postId); // Nupp, mis suurendab postituse meeldimiste arvu
     },
-    // Lähtesta kõikide postituste meeldimised
     resetLikes() {
-      this.$store.commit('resetLikes');
+      this.$store.commit('resetLikes'); // Lähtesta kõikide postituste meeldimised
     }
   }
 }
 </script>
+
+<style scoped>
+button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+</style>
+
