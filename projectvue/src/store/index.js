@@ -2,20 +2,222 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    posts: Array.from({ length: 10 }, (v, i) => ({
-      id: i + 1,
-      title: `Post Title ${i + 1}`,
-      body: `Post content for post ${i + 1}.`,
-      likes: 0,
-    })),
+    // New posts data
+    posts: [
+      {
+        id: 1,
+        title: "Sunrise Delight",
+        content: "Caught an amazing sunrise today! The colors were incredible.",
+        author: "Emily Nguyen",
+        create_time: "2024-10-28T06:30:00",
+        tags: ["nature", "sunrise", "morning"],
+        likes: 120,
+        image_url: "images/sunrise.jpg"
+      },
+      {
+        id: 2,
+        title: "Best Coffee in Town",
+        content: "Discovered a new coffee shop with the best espresso ever!",
+        author: "Daniel Klein",
+        create_time: "2024-10-27T09:15:00",
+        tags: ["coffee", "food", "review"],
+        likes: 85,
+        image_url: "images/coffee.jpg"
+      },
+      {
+        id: 3,
+        title: "A Day in the Mountains",
+        content: "Hiked up the mountain and it was breathtaking. Can't wait to go back.",
+        author: "Sophie Martins",
+        create_time: "2024-10-26T14:45:00",
+        tags: ["hiking", "adventure", "mountains"],
+        likes: 200,
+        image_url: "images/mountains.jpg"
+      },
+      {
+        id: 4,
+        title: "Trying New Recipes",
+        content: "Experimented with some Thai recipes today. Tastes amazing!",
+        author: "Liam Johnson",
+        create_time: "2024-10-25T18:20:00",
+        tags: ["cooking", "food", "recipes"],
+        likes: 60
+      },
+      {
+        id: 5,
+        title: "Coding Challenge",
+        content: "Just finished a week-long coding challenge. Learned so much!",
+        author: "Olivia Smith",
+        create_time: "2024-10-24T22:30:00",
+        tags: ["coding", "learning", "programming"],
+        likes: 140
+      },
+      {
+        id: 6,
+        title: "City Lights",
+        content: "Exploring the city at night. The lights make everything magical.",
+        author: "Alex Chen",
+        create_time: "2024-10-23T20:00:00",
+        tags: ["city", "nightlife", "photography"],
+        likes: 95
+      },
+      {
+        id: 7,
+        title: "Books to Read",
+        content: "Compiled a list of my favorite books to read this winter.",
+        author: "Rachel Green",
+        create_time: "2024-10-22T16:40:00",
+        tags: ["books", "reading", "recommendations"],
+        likes: 110
+      },
+      {
+        id: 8,
+        title: "The Best Pizza",
+        content: "Tried making homemade pizza from scratch. Turned out delicious!",
+        author: "Michael Torres",
+        create_time: "2024-10-21T19:15:00",
+        tags: ["food", "pizza", "cooking"],
+        likes: 75
+      },
+      {
+        id: 9,
+        title: "Art in the Park",
+        content: "Visited an art exhibition in the park. Truly inspiring work.",
+        author: "Isabella Lopez",
+        create_time: "2024-10-20T13:30:00",
+        tags: ["art", "exhibition", "inspiration"],
+        likes: 130
+      },
+      {
+        id: 10,
+        title: "Sunday Funday",
+        content: "Spent a relaxing Sunday with friends and family. Perfect day!",
+        author: "Ethan Brown",
+        create_time: "2024-10-19T17:00:00",
+        tags: ["family", "friends", "weekend"],
+        likes: 90
+      }
+    ],
   },
   mutations: {
+    // Increment the like count for a post
     incrementLikes(state, postId) {
       const post = state.posts.find(post => post.id === postId);
       if (post) post.likes++;
     },
+    // Reset all likes to 0
     resetLikes(state) {
       state.posts.forEach(post => (post.likes = 0));
+    },
+    // Set new posts (useful for future API calls)
+    setPosts(state, posts) {
+      state.posts = posts;
+    }
+  },
+  actions: {
+    // Fetch posts from an API or any other external source
+    async fetchPosts({ commit }) {
+      try {
+        // Simulate an API fetch
+        const posts = [
+          {
+            id: 1,
+            title: "Sunrise Delight",
+            content: "Caught an amazing sunrise today! The colors were incredible.",
+            author: "Emily Nguyen",
+            create_time: "2024-10-28T06:30:00",
+            tags: ["nature", "sunrise", "morning"],
+            likes: 120,
+            image_url: "images/sunrise.jpg"
+          },
+          {
+            id: 2,
+            title: "Best Coffee in Town",
+            content: "Discovered a new coffee shop with the best espresso ever!",
+            author: "Daniel Klein",
+            create_time: "2024-10-27T09:15:00",
+            tags: ["coffee", "food", "review"],
+            likes: 85,
+            image_url: "images/coffee.jpg"
+          },
+          {
+            id: 3,
+            title: "A Day in the Mountains",
+            content: "Hiked up the mountain and it was breathtaking. Can't wait to go back.",
+            author: "Sophie Martins",
+            create_time: "2024-10-26T14:45:00",
+            tags: ["hiking", "adventure", "mountains"],
+            likes: 200,
+            image_url: "images/mountains.jpg"
+          },
+          {
+            id: 4,
+            title: "Trying New Recipes",
+            content: "Experimented with some Thai recipes today. Tastes amazing!",
+            author: "Liam Johnson",
+            create_time: "2024-10-25T18:20:00",
+            tags: ["cooking", "food", "recipes"],
+            likes: 60
+          },
+          {
+            id: 5,
+            title: "Coding Challenge",
+            content: "Just finished a week-long coding challenge. Learned so much!",
+            author: "Olivia Smith",
+            create_time: "2024-10-24T22:30:00",
+            tags: ["coding", "learning", "programming"],
+            likes: 140
+          },
+          {
+            id: 6,
+            title: "City Lights",
+            content: "Exploring the city at night. The lights make everything magical.",
+            author: "Alex Chen",
+            create_time: "2024-10-23T20:00:00",
+            tags: ["city", "nightlife", "photography"],
+            likes: 95
+          },
+          {
+            id: 7,
+            title: "Books to Read",
+            content: "Compiled a list of my favorite books to read this winter.",
+            author: "Rachel Green",
+            create_time: "2024-10-22T16:40:00",
+            tags: ["books", "reading", "recommendations"],
+            likes: 110
+          },
+          {
+            id: 8,
+            title: "The Best Pizza",
+            content: "Tried making homemade pizza from scratch. Turned out delicious!",
+            author: "Michael Torres",
+            create_time: "2024-10-21T19:15:00",
+            tags: ["food", "pizza", "cooking"],
+            likes: 75
+          },
+          {
+            id: 9,
+            title: "Art in the Park",
+            content: "Visited an art exhibition in the park. Truly inspiring work.",
+            author: "Isabella Lopez",
+            create_time: "2024-10-20T13:30:00",
+            tags: ["art", "exhibition", "inspiration"],
+            likes: 130
+          },
+          {
+            id: 10,
+            title: "Sunday Funday",
+            content: "Spent a relaxing Sunday with friends and family. Perfect day!",
+            author: "Ethan Brown",
+            create_time: "2024-10-19T17:00:00",
+            tags: ["family", "friends", "weekend"],
+            likes: 90
+          }
+        ];
+        commit("setPosts", posts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     },
   },
 });

@@ -1,10 +1,21 @@
 <template>
   <div class="post">
     <h3>{{ post.title }}</h3>
-    <p>{{ post.body }}</p>
+    <p><strong>Author:</strong> {{ post.author }}</p>
+    <p><strong>Created on:</strong> {{ new Date(post.create_time).toLocaleDateString() }}</p>
+    <p>{{ post.content }}</p>
+    
+    <!-- Display tags -->
+    <p><strong>Tags:</strong> {{ post.tags.join(", ") }}</p>
+
+    <!-- Display image if available -->
+    <img v-if="post.image_url" :src="post.image_url" :alt="post.title" class="post-image"/>
+
+    <!-- Like button -->
     <button @click="likePost">Like ({{ post.likes }})</button>
   </div>
 </template>
+
 
 <script>
 export default {

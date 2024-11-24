@@ -1,6 +1,6 @@
 <template>
     <footer>
-      <p>© 2024 Your App. All rights reserved.</p>
+      <p>HW3</p>
     </footer>
   </template>
   
