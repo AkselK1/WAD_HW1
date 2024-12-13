@@ -2,9 +2,9 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    posts: [],
-    isLoading: false, 
-    error: null 
+    posts: JSON.parse(localStorage.getItem('posts')) || [], // Load from localStorage
+    isLoading: false,
+    error: null
   },
   getters: {
     getAllPosts: (state) => state.posts,
@@ -23,17 +23,26 @@ export default createStore({
     },
     SET_POSTS(state, posts) {
       state.posts = posts;
+      localStorage.setItem('posts', JSON.stringify(posts)); // Save to localStorage
     },
     INCREMENT_LIKES(state, postId) {
       const post = state.posts.find(post => post.id === postId);
-      if (post) post.likes++;
+      if (post) {
+        post.likes++;
+        localStorage.setItem('posts', JSON.stringify(state.posts)); // Persist updated posts
+      }
     },
     RESET_LIKES(state) {
       state.posts.forEach(post => (post.likes = 0));
+      localStorage.setItem('posts', JSON.stringify(state.posts)); // Persist reset posts
     }
   },
   actions: {
-    async fetchPosts({ commit }) {
+    async fetchPosts({ commit, state }) {
+      if (state.posts.length > 0) {
+        // Skip fetch if posts already exist in state
+        return;
+      }
       commit('SET_LOADING', true);
       commit('SET_ERROR', null);
       try {
