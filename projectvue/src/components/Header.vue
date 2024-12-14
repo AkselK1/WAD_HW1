@@ -1,11 +1,17 @@
 <template>
-    <header>
-      <nav>
-        <router-link to="/">Home</router-link>
-        <router-link to="/signup">Signup</router-link>
-      </nav>
-    </header>
-  </template>
+  <header>
+    <nav>
+      <router-link to="/">Home</router-link>
+      <!-- Only show signup and login links if not authenticated -->
+      <router-link v-if="!isAuthenticated" to="/signup">Signup</router-link>
+      <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+      <router-link to="/contact">Contact Us</router-link>
+
+      <!-- Show logout button if authenticated -->
+      <button v-if="isAuthenticated" @click="logout">Logout</button>
+    </nav>
+  </header>
+</template>
   
   <script>
   export default {
