@@ -4,7 +4,7 @@
     <main class="main-content">
       <div class="signup-container">
         <h2>Create Account</h2>
-        <form @submit.prevent="validatePassword" class="signup-form">
+        <form @submit.prevent="registerUser" class="signup-form">
           <div class="form-group">
             <input 
               type="text" 
@@ -61,7 +61,35 @@ export default {
       ];
       const errors = conditions.filter(([isValid]) => !isValid).map(([, message]) => message);
       this.errorMessage = errors.join(" ");
-      if (!errors.length) alert("Signup successful!");
+      return !errors.length;
+    },
+    async registerUser() {
+      // Validate password first
+      if (!this.validatePassword()) return;
+
+      try {
+        // Make the POST request to the signup endpoint
+        const response = await fetch("http://localhost:3000/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: this.username,
+            password: this.password,
+          }),
+        });
+
+        // Handle response based on the server's response
+        if (response.ok) {
+          alert("Account created successfully!");
+          this.$router.push("/login"); // Redirect to login page
+        } else {
+          const data = await response.json();
+          this.errorMessage = data.message || "An error occurred during signup.";
+        }
+      } catch (error) {
+        // If the request fails due to network issues or other errors
+        this.errorMessage = "Failed to connect to the server. Please try again later.";
+      }
     },
   },
 };
