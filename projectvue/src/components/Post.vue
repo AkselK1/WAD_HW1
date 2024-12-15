@@ -1,45 +1,38 @@
 <template>
   <div v-if="!isLoading">
-    <div v-if="post" class="post-card">
-      <!-- Post Header Section -->
-      <div class="post-header">
-        <div class="post-title-section">
-          <h2 class="post-title">{{ post.title }}</h2>
-          <div class="post-meta">
-            <div class="author-date">
-              <span class="author">{{ post.author }}</span>
-              <span class="date-divider">•</span>
-              <span class="date">{{ formatDate(post.create_time) }}</span>
+    <div v-if="posts.length > 0" class="posts-list">
+      <div v-for="post in posts" :key="post.id" class="post-card">
+        <!-- Post Header Section -->
+        <div class="post-header">
+          <div class="post-title-section">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <div class="post-meta">
+              <div class="author-date">
+                <span class="author">{{ post.author }}</span>
+                <span class="date-divider">•</span>
+                <span class="date">{{ formatDate(post.create_time) }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div v-if="post.image_url" class="post-image-container">
-        <img :src="post.image_url" :alt="post.title" class="post-image"/>
-      </div>
-
-      <div class="post-content">
-        <p>{{ post.content }}</p>
-      </div>
-
-      <div class="post-footer">
-        <div class="tags-container">
-          <span v-for="tag in post.tags" 
-                :key="tag" 
-                class="tag">
-            #{{ tag }}
-          </span>
+        <div v-if="post.image_url" class="post-image-container">
+          <img :src="post.image_url" :alt="post.title" class="post-image"/>
         </div>
-        
-        <button
-          @click="likePost"
-          class="like-button"
-          :class="{ 'liked': isLiked }"
-        >
-          <span class="heart-icon">{{ isLiked ? '❤️' : '🤍' }}</span>
-          <span class="likes-count">{{ post.likes }}</span>
-        </button>
+
+        <div class="post-content">
+          <p>{{ post.content }}</p>
+        </div>
+
+        <div class="post-footer">
+          <div class="tags-container">
+            <span v-for="tag in post.tags" 
+                  :key="tag" 
+                  class="tag">
+              #{{ tag }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -47,44 +40,37 @@
       {{ error }}
     </div>
   </div>
+
   <div v-else class="loading-spinner">
-    Loading post...
+    Loading posts...
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
-  name: "AppPost",
-  props: {
-    postId: {
-      type: Number,
-      required: true
-    }
-  },
+  name: "PostsList",
   data() {
     return {
-      isLiked: false
-    }
-  },
-  computed: {
-    ...mapGetters(['getPostById', 'getIsLoading', 'getError']),
-    post() {
-      return this.getPostById(this.postId);
-    },
-    isLoading() {
-      return this.getIsLoading;
-    },
-    error() {
-      return this.getError;
-    }
+      posts: [], // Store all posts
+      isLoading: true, // Loading state
+      error: null // Error state
+    };
   },
   methods: {
-    likePost() {
-      if (!this.isLiked) {
-        this.$store.commit("INCREMENT_LIKES", this.postId);
-        this.isLiked = true;
+    async fetchPosts() {
+      try {
+        const response = await fetch('http://localhost:3000/api/posts/');
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts.');
+        }
+
+        const data = await response.json();
+        this.posts = data; // Store fetched posts
+        this.isLoading = false; // Update loading state
+      } catch (err) {
+        this.error = err.message || 'Failed to load posts. Please try again later.';
+        this.isLoading = false;
       }
     },
     formatDate(dateString) {
@@ -94,16 +80,12 @@ export default {
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
-      }
-      return new Date(dateString).toLocaleDateString('en-US', options)
+      };
+      return new Date(dateString).toLocaleDateString('en-US', options);
     }
   },
   created() {
-    this.$store.subscribe((mutation) => {
-      if (mutation.type === 'RESET_LIKES') {
-        this.isLiked = false;
-      }
-    })
+    this.fetchPosts(); // Fetch the posts when the component is created
   }
 };
 </script>

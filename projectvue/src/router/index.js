@@ -3,13 +3,12 @@ import MainPage from "@/pages/MainPage.vue";
 import SignupPage from "@/pages/SignupPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import ContactPage from "@/pages/ContactPage.vue";
-import AddPost from "@/pages/AddPost.vue"; // AddPost page
-import PostDetails from "@/pages/PostDetails.vue"; // PostDetails page
+import AddPost from "@/pages/AddPost.vue"; 
+import PostDetails from "@/pages/PostDetails.vue"; 
 
 // Mock function to check if the user is authenticated (replace with real logic)
 function isAuthenticated() {
-  console.log(localStorage.getItem("authToken"));
-  return localStorage.getItem("authToken") !== null; // Check if there's a stored token
+  return localStorage.getItem("authToken") !== null;
 }
 
 const routes = [
@@ -18,9 +17,9 @@ const routes = [
     component: MainPage,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
-        next(); // Allow access to the home page
+        next();
       } else {
-        next("/login"); // Redirect to login page if not authenticated
+        next("/login");
       }
     },
   },
@@ -32,9 +31,9 @@ const routes = [
     component: AddPost,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
-        next(); // Allow access to add post page
+        next();
       } else {
-        next("/login"); // Redirect to login page if not authenticated
+        next("/login");
       }
     },
   },
@@ -43,12 +42,12 @@ const routes = [
     component: PostDetails,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
-        next(); // Allow access to post details page
+        next();
       } else {
-        next("/login"); // Redirect to login page if not authenticated
+        next("/login");
       }
     },
-    props: true, // Pass route params as props
+    props: true,
   },
 ];
 
@@ -58,3 +57,4 @@ const router = createRouter({
 });
 
 export default router;
+

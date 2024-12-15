@@ -76,7 +76,6 @@ export default {
           const data = await response.json();
           // Store the auth token in localStorage
           localStorage.setItem("authToken", data.token);
-          alert("Login successful!");
           this.$router.push("/"); // Redirect to the homepage
         } else {
           const data = await response.json();
