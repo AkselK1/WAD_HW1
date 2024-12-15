@@ -1,78 +1,49 @@
 <template>
-  <div v-if="!isLoading">
-    <div v-if="posts.length > 0" class="posts-list">
-      <div v-for="post in posts" :key="post.id" class="post-card">
-        <!-- Post Header Section -->
-        <div class="post-header">
-          <div class="post-title-section">
-            <h2 class="post-title">{{ post.title }}</h2>
-            <div class="post-meta">
-              <div class="author-date">
-                <span class="author">{{ post.author }}</span>
-                <span class="date-divider">•</span>
-                <span class="date">{{ formatDate(post.create_time) }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="post.image_url" class="post-image-container">
-          <img :src="post.image_url" :alt="post.title" class="post-image"/>
-        </div>
-
-        <div class="post-content">
-          <p>{{ post.content }}</p>
-        </div>
-
-        <div class="post-footer">
-          <div class="tags-container">
-            <span v-for="tag in post.tags" 
-                  :key="tag" 
-                  class="tag">
-              #{{ tag }}
-            </span>
+  <div class="post-card">
+    <!-- Post Header Section -->
+    <div class="post-header">
+      <div class="post-title-section">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <div class="post-meta">
+          <div class="author-date">
+            <span class="author">{{ post.author }}</span>
+            <span class="date-divider">•</span>
+            <span class="date">{{ formatDate(post.create_time) }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-else-if="error" class="error-message">
-      {{ error }}
+    <div v-if="post.image_url" class="post-image-container">
+      <img :src="post.image_url" :alt="post.title" class="post-image"/>
     </div>
-  </div>
 
-  <div v-else class="loading-spinner">
-    Loading posts...
+    <div class="post-content">
+      <p>{{ post.content }}</p>
+    </div>
+
+    <div class="post-footer">
+      <div class="tags-container">
+        <span v-for="tag in post.tags" 
+              :key="tag" 
+              class="tag">
+          #{{ tag }}
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "PostsList",
-  data() {
-    return {
-      posts: [], // Store all posts
-      isLoading: true, // Loading state
-      error: null // Error state
-    };
+  name: "PostList",
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
   },
   methods: {
-    async fetchPosts() {
-      try {
-        const response = await fetch('http://localhost:3000/api/posts/');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts.');
-        }
-
-        const data = await response.json();
-        this.posts = data; // Store fetched posts
-        this.isLoading = false; // Update loading state
-      } catch (err) {
-        this.error = err.message || 'Failed to load posts. Please try again later.';
-        this.isLoading = false;
-      }
-    },
     formatDate(dateString) {
       const options = {
         year: 'numeric',
@@ -83,21 +54,26 @@ export default {
       };
       return new Date(dateString).toLocaleDateString('en-US', options);
     }
-  },
-  created() {
-    this.fetchPosts(); // Fetch the posts when the component is created
   }
 };
 </script>
 
+
 <style scoped>
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ensures consistent width */
+  gap: 32px; /* Space between posts */
+  justify-content: center; /* Center the posts grid */
+}
+
 .post-card {
+  width: 100%; /* Ensures the card takes the full grid column width */
+  max-width: 600px; /* Optional: Limit the maximum width */
+  margin: 0 auto; /* Center the card if it's narrower than the grid */
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 24px auto;
-  max-width: 800px;
-  overflow: hidden;
   transition: transform 0.2s ease;
 }
 
@@ -105,6 +81,7 @@ export default {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
 
 .post-header {
   padding: 20px 24px;
