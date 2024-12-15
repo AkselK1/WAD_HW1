@@ -83,29 +83,13 @@ app.post("/login", async (req, res) => {
     }
 });
 
-
-// Protect the posts routes
-app.post("/api/posts", authenticateToken, async (req, res) => {
-    try {
-        const post = req.body;
-        const newPost = await pool.query(
-            "INSERT INTO posts (title, body, urllink) VALUES ($1, $2, $3) RETURNING *",
-            [post.title, post.body, post.urllink]
-        );
-        res.json(newPost.rows[0]);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ message: "Server error." });
-    }
-});
-
 app.put("/api/posts/:id", authenticateToken, async (req, res) => {
     try {
         const { id } = req.params;
-        const post = req.body;
+        const { title, content } = req.body;
         await pool.query(
-            "UPDATE posts SET (title, body, urllink) = ($2, $3, $4) WHERE id = $1",
-            [id, post.title, post.body, post.urllink]
+            "UPDATE posts SET title = $2, content = $3 WHERE id = $1",
+            [id, title, content]
         );
         res.json({ message: "Post updated successfully." });
     } catch (err) {
@@ -146,6 +130,36 @@ app.get("/api/posts/:id", async (req, res) => {
         res.status(500).json({ message: "Server error." });
     }
 });
+
+// Route to delete all posts
+app.delete("/api/posts", authenticateToken, async (req, res) => {
+    try {
+      console.log("DELETE /api/posts invoked by:", req.user);
+      await pool.query("DELETE FROM posts");
+      console.log("Posts deleted from database");
+      res.json({ message: "All posts deleted successfully." });
+    } catch (err) {
+      console.error("Error deleting posts:", err.message);
+      res.status(500).json({ message: "Server error while deleting posts." });
+    }
+  });
+
+app.post("/api/posts", authenticateToken, async (req, res) => {
+    try {
+        const { content } = req.body;
+        const author = req.user.username;
+
+        const newPost = await pool.query(
+            "INSERT INTO posts (title, content, author) VALUES ($1, $2, $3) RETURNING *",
+            ["Untitled Post", content, author]
+        );
+        res.json(newPost.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: "Server error." });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -68,7 +68,6 @@ export default {
     try {
       const authToken = localStorage.getItem("authToken");
       console.log("Sending DELETE request to: http://localhost:3000/api/posts");
-
       const response = await fetch("http://localhost:3000/api/posts", {
         method: "DELETE",
         headers: {
@@ -76,9 +75,7 @@ export default {
           Authorization: `Bearer ${authToken}`,
         },
       });
-
       console.log("Response status:", response.status);
-
       if (response.ok) {
         alert("All posts deleted successfully!");
         this.$store.commit("SET_POSTS", []); // Clear posts in Vuex store

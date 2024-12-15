@@ -1,80 +1,79 @@
 <template>
-    <div class="add-post-page">
-      <Header />
-      <main class="main-content">
-        <div class="add-post-container">
-          <h2>Add a New Post</h2>
-          <form @submit.prevent="addPost" class="add-post-form">
-            <div class="form-group">
-              <textarea
-                v-model="postContent"
-                placeholder="Write your post here..."
-                required
-                class="form-input textarea"
-              ></textarea>
-            </div>
-            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-            <button type="submit" class="button">Submit Post</button>
-          </form>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  </template>
+  <div class="add-post-page">
+    <Header />
+    <main class="main-content">
+      <div class="add-post-container">
+        <h2>Add a New Post</h2>
+        <form @submit.prevent="addPost" class="add-post-form">
+          <div class="form-group">
+            <textarea
+              v-model="postContent"
+              placeholder="Write your post here..."
+              required
+              class="form-input textarea"
+            ></textarea>
+          </div>
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+          <button type="submit" class="button">Submit Post</button>
+        </form>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</template>
   
-  <script>
-  import Header from "@/components/Header.vue";
-  import Footer from "@/components/Footer.vue";
-  
-  export default {
-    name: "AddPost",
-    components: {
-      Header,
-      Footer,
-    },
-    data() {
-      return {
-        postContent: "",
-        errorMessage: "",
-      };
-    },
-    methods: {
-      async addPost() {
-        if (this.postContent.trim() === "") {
-          this.errorMessage = "Post content cannot be empty.";
-          return;
-        }
-  
-        try {
-          // Replace this mock API call with your backend API
-          console.log(localStorage.getItem("authToken"));
-          const authToken = localStorage.getItem("authToken");
-          const response = await fetch("http://localhost:3000/posts", {
-            method: "POST",
+<script>
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+import axios from 'axios';
+
+export default {
+  name: "AddPost",
+  components: {
+    Header,
+    Footer,
+  },
+  data() {
+    return {
+      postContent: "",
+      errorMessage: "",
+    };
+  },
+  methods: {
+    async addPost() {
+    if (this.postContent.trim() === "") {
+        this.errorMessage = "Post content cannot be empty.";
+        return;
+    }
+
+    try {
+        const authToken = localStorage.getItem("authToken");
+
+        const response = await axios.post('http://localhost:3000/api/posts', 
+        {
+            content: this.postContent
+        }, 
+        {
             headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`, // JWT token for authentication
-            },
-            body: JSON.stringify({
-              content: this.postContent,
-              date: new Date().toISOString(),
-            }),
-          });
-  
-          if (response.ok) {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // When post is successful
+        if (response.status === 200) {
             alert("Post added successfully!");
-            this.$router.push("/"); // Redirect to homepage
-          } else {
-            const data = await response.json();
-            this.errorMessage = data.message || "Failed to add the post.";
-          }
-        } catch (error) {
-          this.errorMessage = "An error occurred. Please try again later.";
+            this.postContent = "";
+            this.$router.push("/");
         }
-      },
-    },
-  };
-  </script>
+    } catch (error) {
+        console.error("Error adding post:", error);
+        this.errorMessage = error.response?.data?.message || "Failed to add post";
+    }
+}
+  }
+};
+</script>
   
   <style scoped>
   .add-post-page {
