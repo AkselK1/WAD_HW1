@@ -1,5 +1,5 @@
 // Endpoint where JSON data is stored
-const endpoint = "https://api.npoint.io/0ee96d0e43f4093eb433";
+const endpoint = "https://localhost:3000/api/posts";
 
 // Local JSON file path
 const localEndpoint = "./scripts/post.json";
@@ -7,8 +7,8 @@ const localEndpoint = "./scripts/post.json";
 // Function to fetch posts from the endpoint
 async function fetchPosts() {
     try {
-        const response = await fetch(localEndpoint);
-        //const response = await fetch(endpoint);
+        //const response = await fetch(localEndpoint);
+        const response = await fetch(endpoint);
         const posts = await response.json();
         displayPosts(posts);
     } catch (error) {
