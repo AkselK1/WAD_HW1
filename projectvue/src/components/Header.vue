@@ -16,10 +16,12 @@
 
 <script>
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: "AppHeader",
   setup() {
+    const router = useRouter();
     const isAuthenticated = ref(localStorage.getItem("authToken") !== null);
 
     watch(() => localStorage.getItem("authToken"), (newValue) => {
@@ -29,6 +31,7 @@ export default {
     const logout = () => {
       localStorage.removeItem("authToken");
       isAuthenticated.value = false;
+      router.push('/login');
     };
 
     return {

@@ -9,7 +9,7 @@
             <input 
               type="text" 
               v-model="username" 
-              placeholder="Username" 
+              placeholder="Email" 
               required 
               class="form-input"
             />
