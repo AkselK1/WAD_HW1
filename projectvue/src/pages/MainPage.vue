@@ -62,11 +62,37 @@ export default {
     addPost() {
       this.$router.push("/addPost"); // Navigate to AddPost page
     },
-    deleteAllPosts() {
-      if (confirm("Are you sure you want to delete all posts?")) {
+    async deleteAllPosts() {
+  const confirmation = confirm("Are you sure you want to delete all posts?");
+  if (confirmation) {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      console.log("Sending DELETE request to: http://localhost:3000/api/posts");
+
+      const response = await fetch("http://localhost:3000/api/posts", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      console.log("Response status:", response.status);
+
+      if (response.ok) {
+        alert("All posts deleted successfully!");
         this.$store.commit("SET_POSTS", []); // Clear posts in Vuex store
+      } else {
+        const data = await response.json();
+        alert(data.message || "Failed to delete posts.");
       }
-    },
+    } catch (error) {
+      console.error("Error deleting posts:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  }
+},
+
   },
   created() {
     this.$store.dispatch("fetchPosts");
