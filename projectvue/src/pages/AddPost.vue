@@ -47,6 +47,7 @@
   
         try {
           // Replace this mock API call with your backend API
+          console.log(localStorage.getItem("authToken"));
           const authToken = localStorage.getItem("authToken");
           const response = await fetch("http://localhost:3000/posts", {
             method: "POST",
