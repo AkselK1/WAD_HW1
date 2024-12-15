@@ -1,10 +1,12 @@
 <template>
   <header>
     <nav>
-      <router-link to="/">Home</router-link>
-      <!-- Only show signup and login links if not authenticated -->
-      <router-link v-if="!isAuthenticated" to="/signup">Signup</router-link>
+      <!-- Show Home link only if authenticated -->
+      <router-link v-if="isAuthenticated" to="/">Home</router-link>
+
+      <!-- Show Signup and Login links if not authenticated -->
       <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+
       <router-link to="/contact">Contact Us</router-link>
 
       <!-- Show logout button if authenticated -->

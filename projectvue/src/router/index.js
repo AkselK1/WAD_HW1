@@ -8,6 +8,7 @@ import PostDetails from "@/pages/PostDetails.vue"; // PostDetails page
 
 // Mock function to check if the user is authenticated (replace with real logic)
 function isAuthenticated() {
+  console.log(localStorage.getItem("authToken"));
   return localStorage.getItem("authToken") !== null; // Check if there's a stored token
 }
 

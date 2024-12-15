@@ -77,7 +77,7 @@ export default {
           // Store the auth token in localStorage
           localStorage.setItem("authToken", data.token);
           alert("Login successful!");
-          this.$router.push("/home"); // Redirect to the homepage
+          this.$router.push("/"); // Redirect to the homepage
         } else {
           const data = await response.json();
           this.errorMessage = data.message || "Invalid email or password.";
